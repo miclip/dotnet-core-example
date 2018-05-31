@@ -1,0 +1,36 @@
+# pipeline for dotnet-core-helloWorld app.
+
+groups:
+- name: dotnet-core-hello-world
+  jobs:
+  - build-service
+
+resources:
+- name: service-repo
+  type: git
+  source:
+    uri: https://github.com/miclip/dotnet-core-example.git
+    branch: master
+
+- name: deploy-dev-env
+  type: cf
+  source:
+    api:             {{pcf-api}}
+    username:        {{deploy-username}}
+    password:        {{deploy-password}}
+    skip_cert_check: true
+    organization:    {{organization}}
+    space:           {{staging-space}}
+
+jobs:
+- name: build-service
+  public: true
+  serial: true
+  plan:
+  - get: service-repo
+    trigger: true
+  - task: build-and-pkg
+    file: service-repo/ci/tasks/build.yml
+  - put: deploy-dev-env
+    params:
+      manifest: service-repo/manifest.yml
