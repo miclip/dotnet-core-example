@@ -34,3 +34,4 @@ jobs:
   - put: deploy-dev-env
     params:
       manifest: service-repo/manifest.yml
+      path: build-output

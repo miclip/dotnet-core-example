@@ -7,7 +7,7 @@ ls -l ../
 echo "starting build ..."
 
 dotnet restore
-dotnet publish -c Release -o ./publish
+dotnet publish -f netcoreapp1.0 -r ubuntu.14.04-x64 -o ./publish
 
 echo "copying files to ../build-output"
 cp manifest.yml ../build-output
