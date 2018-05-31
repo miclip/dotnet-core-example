@@ -12,6 +12,5 @@ This project is a sample .Net Core app. It highlights the following...
      $ fly -t local unpause-pipeline -p dotnet-core-example
      
   ```
-
 Please post your comments for me, or if you have any questions.
 
