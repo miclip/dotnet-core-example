@@ -6,6 +6,7 @@ This project is a sample .Net Core app. It highlights the following...
 * manifest file to deploy to pcf
 * concourse ci/cd pipeline.
 
+
   ```
      $ fly -t local set-pipeline -p dotnet-core-example -c ci/pipeline.yml -l ci/credentials.yml
      
