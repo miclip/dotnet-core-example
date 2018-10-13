@@ -12,15 +12,11 @@ resources:
     uri: https://github.com/miclip/dotnet-core-example.git
     branch: master
 
-- name: deploy-dev-env
-  type: cf
+- name: dotnet
+  type: docker-image
   source:
-    api:             {{pcf-api}}
-    username:        {{deploy-username}}
-    password:        {{deploy-password}}
-    skip_cert_check: true
-    organization:    {{organization}}
-    space:           {{staging-space}}
+    repository: miclip/dotnet-resource
+    tag: latest
 
 jobs:
 - name: build-service
@@ -29,9 +25,8 @@ jobs:
   plan:
   - get: service-repo
     trigger: true
-  - task: build-and-pkg
-    file: service-repo/ci/tasks/build.yml
-  - put: deploy-dev-env
+  - put: dotnet
     params:
-      manifest: service-repo/manifest.yml
-      path: build-output
+     directory: service-repo
+    
+  
